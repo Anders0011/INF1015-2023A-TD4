@@ -39,10 +39,19 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Affichage.hpp">
+    <ClInclude Include="Personnage.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Personnage.hpp">
+    <ClInclude Include="Vilain.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Heros.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Affichable.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="VilainHeros.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
