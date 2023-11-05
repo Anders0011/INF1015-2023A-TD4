@@ -42,5 +42,8 @@
     <ClInclude Include="Affichage.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Personnage.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
