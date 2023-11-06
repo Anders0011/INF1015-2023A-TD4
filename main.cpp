@@ -54,7 +54,8 @@ int main()
 	//un autre de type Vilain et le dernier pour y mettre des Personnages.
 	vector<Heros> vecteurHeros;
 	vector<Vilain> vecteurVilains;
-	vector<Personnage> vecteurPersonnages;
+	vector<shared_ptr<Personnage>> vecteurPersonnages;
+	//vector<Personnage> vecteurPersonnages;
 
 	//TODO: Faire la lecture des deux fichiers binaires afin 
 	//de placer les héros dans les bons vecteurs.
@@ -62,18 +63,19 @@ int main()
 		UInt16 nombreHeros = lireUint16(fichierHeros);
 		for (UInt16 i = 0; i < nombreHeros; i++) {
 			string nom = lireString(fichierHeros);
-			string titreJeu = lireString(fichierHeros); 
+			string titreJeu = lireString(fichierHeros);
 			string ennemi = lireString(fichierHeros);
 
 			//TODO: Pour les héros, ajouter chaque allié à l’attribut liste allies d’un héros.
 			vector<string> vecteurAllies;
 			UInt8 nombreAllies = lireUint8(fichierHeros);
 			for (UInt8 j = 0; j < nombreAllies; j++) {
-				string Allies = lireString(fichierHeros);
-				vecteurAllies.push_back(Allies);
+				string Allie = lireString(fichierHeros);
+				vecteurAllies.push_back(Allie);
 			}
 
-			vecteurHeros.push_back(Heros(nom, titreJeu, ennemi, vecteurAllies));
+			Heros hero(nom, titreJeu, ennemi, vecteurAllies);
+			vecteurHeros.push_back(hero);
 		}
 
 		fichierHeros.close();
@@ -88,7 +90,9 @@ int main()
 			string nom = lireString(fichierVilains);
 			string titreJeu = lireString(fichierVilains);
 			string objectif = lireString(fichierVilains);
-			vecteurVilains.push_back(Vilain(nom, titreJeu, objectif));
+
+			Vilain vilain(nom, titreJeu, objectif);
+			vecteurVilains.push_back(vilain);
 		}
 
 		fichierVilains.close();
@@ -105,7 +109,7 @@ int main()
 	for (Heros& heros : vecteurHeros) {
 		heros.changerCouleur(cout, "Bleu");
 		heros.afficher(cout);
-		heros.changerCouleur(cout,"");
+		heros.changerCouleur(cout, "");
 		cout << trait << "\n";
 	}
 
@@ -118,18 +122,29 @@ int main()
 
 	//TODO:Placer tous les héros et vilains dans le vecteur de personnages. 
 	// Le polymorphisme nous permet une telle opération car les héros et les vilains sont des personnages.
-	for (Heros heros : vecteurHeros)
-		vecteurPersonnages.push_back(heros);
+	for (const auto& heros : vecteurHeros)
+	{
+		shared_ptr personnageHero = make_shared<Heros>(heros.getNom(), heros.getTitre(), heros.getEnnemi(), heros.getListeAllies());
+		vecteurPersonnages.push_back(personnageHero);
+	}
 
-	for (Vilain vilains : vecteurVilains)
-		vecteurPersonnages.push_back(vilains);
+	for (const auto& vilain : vecteurVilains)
+	{
+		shared_ptr personnageVilain = make_shared<Vilain>(vilain.getNom(), vilain.getTitre(), vilain.getObjectif());
+		vecteurPersonnages.push_back(personnageVilain);
+	}
 
 	//TODO: Afficher ensuite chaque personnage du vecteur de personnages toujours en faisant appel à la méthode
-	// afficher, encore avec les héros et vilains de couleurs différentes.
-	for (Personnage& personnage : vecteurPersonnages) {
-		personnage.afficher(cout);
-		personnage.changerCouleur(cout, "");
-		cout << trait << "\n";
+	// afficher, encore avec les héros et vilains de couleurs différentes.	 
+	cout << "Liste des personnages (Heros et Vilains) : \n" << endl;
+	for (auto&& personnage : vecteurPersonnages) {
+		if (shared_ptr<Heros> heros = dynamic_pointer_cast<Heros>(personnage))
+			heros->changerCouleur(cout, "Bleu");
+		else if (shared_ptr<Vilain> vilain = dynamic_pointer_cast<Vilain>(personnage))
+			vilain->changerCouleur(cout, "Rouge");
+		personnage->afficher(cout);
+		personnage->changerCouleur(cout, "");
+		cout << trait << endl;
 	}
 
 	//TODO: Finalement, créer un VilainHeros en passant à son constructeur un vilain et héros de votre choix,
@@ -140,11 +155,22 @@ int main()
 	VilainHeros vilainHeros(vecteurVilains[0], vecteurHeros[2]);
 	vilainHeros.changerCouleur(cout, "Magenta");
 	vilainHeros.afficher(cout);
-	vecteurPersonnages.push_back(vilainHeros);
-	for (Personnage& personnage : vecteurPersonnages) {
-		personnage.changerCouleur(cout, "Vert");
-		personnage.afficher(cout);
-		personnage.changerCouleur(cout, "");
-		cout << trait << "\n";
+	vilainHeros.changerCouleur(cout, "");
+	cout << trait << endl;
+
+	shared_ptr vilainHero = make_shared<VilainHeros>(vecteurVilains[0], vecteurHeros[2]);
+	vecteurPersonnages.push_back(vilainHero);
+
+	cout << "Liste des personnages de tous les types: \n" << endl;
+	for (auto&& personnage : vecteurPersonnages) {
+		if (shared_ptr<VilainHeros> vilainHeros = dynamic_pointer_cast<VilainHeros>(personnage))
+			vilainHeros->changerCouleur(cout, "Vert");
+		else if (shared_ptr<Heros> heros = dynamic_pointer_cast<Heros>(personnage))
+			heros->changerCouleur(cout, "Bleu");
+		else if (shared_ptr<Vilain> vilain = dynamic_pointer_cast<Vilain>(personnage))
+			vilain->changerCouleur(cout, "Rouge");
+		personnage->afficher(cout);
+		personnage->changerCouleur(cout, "");
+		cout << trait << endl;
 	}
 }

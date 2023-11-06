@@ -161,7 +161,11 @@
   <ItemGroup>
     <ClCompile Include="bibliotheque_cours\bibliotheque_cours.cpp" />
     <ClCompile Include="bibliotheque_cours\verification_allocation.cpp" />
+    <ClCompile Include="Heros.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Personnage.cpp" />
+    <ClCompile Include="Vilain.cpp" />
+    <ClCompile Include="VilainHeros.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="CMakeLists.txt" />

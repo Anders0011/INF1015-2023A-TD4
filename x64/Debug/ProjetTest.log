@@ -1,4 +1,5 @@
 ﻿  main.cpp
-C:\Users\ayoub\OneDrive\Trimestre 3\INF1015\TD\INF1015-2023A-TD4\VilainHeros.hpp(22): warning C4172: retourne l'adresse d'une variable locale ou  temporaire
+C:\Users\ayoub\OneDrive\Trimestre 3\INF1015\TD\INF1015-2023A-TD4\main.cpp(166,31): warning C4456: la déclaration de 'vilainHeros' masque la déclaration locale précédente
+C:\Users\ayoub\OneDrive\Trimestre 3\INF1015\TD\INF1015-2023A-TD4\main.cpp(155,14): message : voir la déclaration de 'vilainHeros'
      Création de la bibliothèque C:\Users\ayoub\OneDrive\Trimestre 3\INF1015\TD\INF1015-2023A-TD4\x64\Debug\ProjetTest.lib et de l'objet C:\Users\ayoub\OneDrive\Trimestre 3\INF1015\TD\INF1015-2023A-TD4\x64\Debug\ProjetTest.exp
   ProjetTest.vcxproj -> C:\Users\ayoub\OneDrive\Trimestre 3\INF1015\TD\INF1015-2023A-TD4\x64\Debug\ProjetTest.exe

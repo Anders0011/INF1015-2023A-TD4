@@ -6,17 +6,10 @@ class Heros : virtual public Personnage
 {
 public:
     Heros() = default;
-    Heros(string nom, string titre, string ennemi, vector<string> liste) :
-        Personnage(nom, titre), ennemi_(ennemi), listeAllies_(liste)
-        {}
-    virtual void afficher(ostream& os) override {
-        Personnage::afficher(os);
-        os << "\nEnnemi : " << ennemi_ << "\nAlliés : \n";
-        for (int i = 0; i < listeAllies_.size(); i++)
-            os << "\t" << listeAllies_[i] << "\n";
-    }
-    const string& getEnnemi() const { return ennemi_; };
-    const vector<string> getListeAllies() const { return listeAllies_; };
+    Heros(string nom, string titre, string ennemi, vector<string> liste);
+    virtual void afficher(ostream& os) override;
+    const string& getEnnemi() const;
+    const vector<string> getListeAllies() const;
 private:
 	vector<string> listeAllies_;
 	string ennemi_;
