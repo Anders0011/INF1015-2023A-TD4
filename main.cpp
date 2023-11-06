@@ -56,7 +56,6 @@ int main()
 	vector<Vilain> vecteurVilains;
 	vector<Personnage> vecteurPersonnages;
 
-	//fichierHeros.open("heros.bin");
 	//TODO: Faire la lecture des deux fichiers binaires afin 
 	//de placer les héros dans les bons vecteurs.
 	if (fichierHeros.is_open()) {
@@ -82,7 +81,6 @@ int main()
 
 	//TODO: Faire la lecture des deux fichiers binaires afin 
 	//de placer les vilains dans les bons vecteurs.
-	//fichierVilains.open("vilains.bin");
 
 	if (fichierVilains.is_open()) {
 		UInt16 nombreVilains = lireUint16(fichierVilains);
