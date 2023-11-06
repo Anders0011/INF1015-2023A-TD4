@@ -1,3 +1,12 @@
+/*
+Fichier : Heros.cpp
+Auteurs : Elias Ladaa (2212727), Ayoub Issiakhem (2216575) et Anders Antoine (2252046)
+Description : Le fichier  Heros.cpp du TD4 pour le cours de inf1015.
+Date : Le 5 novembre 2023
+*/
+
+
+
 #include <iostream>
 #include "Heros.hpp"
 

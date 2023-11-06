@@ -1,5 +1,10 @@
-﻿  main.cpp
-C:\Users\ayoub\OneDrive\Trimestre 3\INF1015\TD\INF1015-2023A-TD4\main.cpp(166,31): warning C4456: la déclaration de 'vilainHeros' masque la déclaration locale précédente
-C:\Users\ayoub\OneDrive\Trimestre 3\INF1015\TD\INF1015-2023A-TD4\main.cpp(155,14): message : voir la déclaration de 'vilainHeros'
+﻿  Heros.cpp
+  Personnage.cpp
+  Vilain.cpp
+  VilainHeros.cpp
+  main.cpp
+C:\Users\ayoub\OneDrive\Trimestre 3\INF1015\TD\INF1015-2023A-TD4\main.cpp(181,27): warning C4456: la déclaration de 'vilainHeros' masque la déclaration locale précédente
+C:\Users\ayoub\OneDrive\Trimestre 3\INF1015\TD\INF1015-2023A-TD4\main.cpp(170,14): message : voir la déclaration de 'vilainHeros'
+  Génération de code en cours...
      Création de la bibliothèque C:\Users\ayoub\OneDrive\Trimestre 3\INF1015\TD\INF1015-2023A-TD4\x64\Debug\ProjetTest.lib et de l'objet C:\Users\ayoub\OneDrive\Trimestre 3\INF1015\TD\INF1015-2023A-TD4\x64\Debug\ProjetTest.exp
   ProjetTest.vcxproj -> C:\Users\ayoub\OneDrive\Trimestre 3\INF1015\TD\INF1015-2023A-TD4\x64\Debug\ProjetTest.exe

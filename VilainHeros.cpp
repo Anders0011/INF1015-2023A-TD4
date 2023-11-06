@@ -1,3 +1,10 @@
+/*
+Fichier : VilainHeros.cpp
+Auteurs : Elias Ladaa (2212727), Ayoub Issiakhem (2216575) et Anders Antoine (2252046)
+Description : Le fichier  VilainHeros.cpp du TD4 pour le cours de inf1015.
+Date : Le 5 novembre 2023
+*/
+
 #include <iostream>
 #include "VilainHeros.hpp"
 
@@ -12,5 +19,5 @@ void VilainHeros::afficher(ostream& os) {
 		 "\nEnnemi : " << heros_.getEnnemi() << "\nAlliés : \n";
 	 for (int i = 0; i < heros_.getListeAllies().size(); i++)
 		 os << "\t" << heros_.getListeAllies()[i] << "\n";
-	 os << "Mission spéciale : " << vilain_.getObjectif() + " dans le monde de\n" + heros_.getTitre() << endl;
+	 os << "Mission spéciale : " << vilain_.getObjectif() + "\ndans le monde de " + heros_.getTitre() << endl;
  }

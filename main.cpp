@@ -1,3 +1,12 @@
+﻿/*
+Fichier : main.cpp
+Auteurs : Elias Ladaa (2212727), Ayoub Issiakhem (2216575) et Anders Antoine (2252046)
+Description : Le fichier  main.cpp du TD4 pour le cours de inf1015.
+Date : Le 5 novembre 2023
+*/
+
+
+
 #include <fstream>
 #include "VilainHeros.hpp"
 #include "bibliotheque_cours.hpp"
@@ -106,6 +115,7 @@ int main()
 	//TODO: Afficher les informations des héros d’une couleur différente de celles des vilains.
 	//Par exemple en bleu pour les héros, en rouge pour les vilains.
 	// Affichage des héros en bleu
+	cout << "Liste des heros : \n\n";
 	for (Heros& heros : vecteurHeros) {
 		heros.changerCouleur(cout, "Bleu");
 		heros.afficher(cout);
@@ -113,6 +123,7 @@ int main()
 		cout << trait << "\n";
 	}
 
+	cout << "Liste des vilains : \n\n";
 	for (Vilain& vilains : vecteurVilains) {
 		vilains.changerCouleur(cout, "Rouge");
 		vilains.afficher(cout);
@@ -122,25 +133,27 @@ int main()
 
 	//TODO:Placer tous les héros et vilains dans le vecteur de personnages. 
 	// Le polymorphisme nous permet une telle opération car les héros et les vilains sont des personnages.
-	for (const auto& heros : vecteurHeros)
+	for (const Heros& heros : vecteurHeros)
 	{
-		shared_ptr personnageHero = make_shared<Heros>(heros.getNom(), heros.getTitre(), heros.getEnnemi(), heros.getListeAllies());
-		vecteurPersonnages.push_back(personnageHero);
+		shared_ptr hero = make_shared<Heros>(heros.getNom(), heros.getTitre(), heros.getEnnemi(), heros.getListeAllies());
+		vecteurPersonnages.push_back(hero);
 	}
 
-	for (const auto& vilain : vecteurVilains)
+	for (const Vilain& vilains : vecteurVilains)
 	{
-		shared_ptr personnageVilain = make_shared<Vilain>(vilain.getNom(), vilain.getTitre(), vilain.getObjectif());
-		vecteurPersonnages.push_back(personnageVilain);
+		shared_ptr vilain = make_shared<Vilain>(vilains.getNom(), vilains.getTitre(), vilains.getObjectif());
+		vecteurPersonnages.push_back(vilain);
 	}
 
 	//TODO: Afficher ensuite chaque personnage du vecteur de personnages toujours en faisant appel à la méthode
 	// afficher, encore avec les héros et vilains de couleurs différentes.	 
 	cout << "Liste des personnages (Heros et Vilains) : \n" << endl;
 	for (auto&& personnage : vecteurPersonnages) {
-		if (shared_ptr<Heros> heros = dynamic_pointer_cast<Heros>(personnage))
+		shared_ptr<Heros> heros = dynamic_pointer_cast<Heros>(personnage);
+		shared_ptr<Vilain> vilain = dynamic_pointer_cast<Vilain>(personnage);
+		if (heros)
 			heros->changerCouleur(cout, "Bleu");
-		else if (shared_ptr<Vilain> vilain = dynamic_pointer_cast<Vilain>(personnage))
+		else if (vilain)
 			vilain->changerCouleur(cout, "Rouge");
 		personnage->afficher(cout);
 		personnage->changerCouleur(cout, "");
@@ -152,6 +165,8 @@ int main()
 	//Afficher-le à l’écran avec une troisième couleur, par exemple en mauve. L’ajouter aussi au vecteur de 
 	//personnages pour voir si l’affichage du vecteur fonctionne correctement pour tous nos types de personnages
 	//(les héros, vilains et vilains héros sont affichés correctement avec toutes leurs informations, et des couleurs différentes).
+	
+	cout << "VilainHeros exemplaire : \n\n";
 	VilainHeros vilainHeros(vecteurVilains[0], vecteurHeros[2]);
 	vilainHeros.changerCouleur(cout, "Magenta");
 	vilainHeros.afficher(cout);
@@ -163,11 +178,14 @@ int main()
 
 	cout << "Liste des personnages de tous les types: \n" << endl;
 	for (auto&& personnage : vecteurPersonnages) {
-		if (shared_ptr<VilainHeros> vilainHeros = dynamic_pointer_cast<VilainHeros>(personnage))
+		shared_ptr<VilainHeros> vilainHeros = dynamic_pointer_cast<VilainHeros>(personnage);
+		shared_ptr<Heros> heros = dynamic_pointer_cast<Heros>(personnage);
+		shared_ptr<Vilain> vilain = dynamic_pointer_cast<Vilain>(personnage);
+		if (vilainHeros)
 			vilainHeros->changerCouleur(cout, "Vert");
-		else if (shared_ptr<Heros> heros = dynamic_pointer_cast<Heros>(personnage))
+		else if (heros)
 			heros->changerCouleur(cout, "Bleu");
-		else if (shared_ptr<Vilain> vilain = dynamic_pointer_cast<Vilain>(personnage))
+		else if (vilain)
 			vilain->changerCouleur(cout, "Rouge");
 		personnage->afficher(cout);
 		personnage->changerCouleur(cout, "");
