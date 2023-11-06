@@ -18,7 +18,6 @@ public:
                 os << "\t" << heros_.getListeAllies()[i] << "\n";
             os << "Mission spéciale : " << getMission() << endl;
     }
-    //virtual void changerCouleur(ostream& os, const string& couleur) override;
     const string& getMission() const { 
         return vilain_.getObjectif() + " dans le monde de " + heros_.getTitre(); 
     }

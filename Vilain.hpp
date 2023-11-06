@@ -12,7 +12,6 @@ public:
 		Personnage::afficher(os);
 		os << "\nObjectif : " << objectif_ << endl;
 	}
-	//virtual void changerCouleur(ostream& os, const string& couleur) override;
 	const string& getObjectif() const { return objectif_; };
 private:
 	string objectif_;

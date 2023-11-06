@@ -1,7 +1,6 @@
 #include <fstream>
-#include "bibliotheque_cours.hpp"
 #include "VilainHeros.hpp"
-#include <vector>
+#include "bibliotheque_cours.hpp"
 using UInt8  = uint8_t;
 using UInt16 = uint16_t;
 
@@ -57,53 +56,97 @@ int main()
 	vector<Vilain> vecteurVilains;
 	vector<Personnage> vecteurPersonnages;
 
+	//fichierHeros.open("heros.bin");
 	//TODO: Faire la lecture des deux fichiers binaires afin 
-	//de placer les héros et les vilains dans les bons vecteurs.
-	for (uint16_t i = 0; i < lireUint16(fichierVilains); i++)
-	{
-		string nom = lireString(fichierVilains);
-		string jeu = lireString(fichierVilains);
-		string objectif = lireString(fichierVilains);
-		vecteurVilains.push_back(Vilain(nom, jeu, objectif));
-	}
+	//de placer les héros dans les bons vecteurs.
+	if (fichierHeros.is_open()) {
+		UInt16 nombreHeros = lireUint16(fichierHeros);
+		for (UInt16 i = 0; i < nombreHeros; i++) {
+			string nom = lireString(fichierHeros);
+			string titreJeu = lireString(fichierHeros); 
+			string ennemi = lireString(fichierHeros);
 
-	fichierVilains.close();
+			//TODO: Pour les héros, ajouter chaque allié à l’attribut liste allies d’un héros.
+			vector<string> vecteurAllies;
+			UInt8 nombreAllies = lireUint8(fichierHeros);
+			for (UInt8 j = 0; j < nombreAllies; j++) {
+				string Allies = lireString(fichierHeros);
+				vecteurAllies.push_back(Allies);
+			}
 
-	//TODO: Pour les héros, ajouter chaque allié à l’attribut liste allies d’un héros.
-	for (uint16_t i = 0; i < lireUint16(fichierHeros); i++)
-	{
-		string nom = lireString(fichierHeros);
-		string jeu = lireString(fichierHeros);
-		string ennemi = lireString(fichierVilains);
-		uint8_t nombreAllies = lireUint8(fichierHeros);
-
-		vector<string> vecteurAllies;
-
-		for (uint8_t j = 0; j < nombreAllies; j++)
-		{
-			string nomAllies = lireString(fichierHeros);
-			vecteurAllies.push_back(nomAllies);
+			vecteurHeros.push_back(Heros(nom, titreJeu, ennemi, vecteurAllies));
 		}
 
-		vecteurHeros.push_back(Heros(nom, jeu, ennemi, vecteurAllies));
+		fichierHeros.close();
 	}
 
-	fichierHeros.close();
+	//TODO: Faire la lecture des deux fichiers binaires afin 
+	//de placer les vilains dans les bons vecteurs.
+	//fichierVilains.open("vilains.bin");
+
+	if (fichierVilains.is_open()) {
+		UInt16 nombreVilains = lireUint16(fichierVilains);
+		for (UInt16 i = 0; i < nombreVilains; i++) {
+			string nom = lireString(fichierVilains);
+			string titreJeu = lireString(fichierVilains);
+			string objectif = lireString(fichierVilains);
+			vecteurVilains.push_back(Vilain(nom, titreJeu, objectif));
+		}
+
+		fichierVilains.close();
+	}
+
 
 	//TODO: Ensuite, afficher tous vos héros séparés par une ligne 
 	//et tous vos vilains séparés par une ligne avec des boucles for 
 	//en faisant appel à la méthode afficher, de manière à ce que 
 	//l’information s’affiche à la console.
-	Heros heros;
-	for (auto& heros : vecteurHeros) {
+	//TODO: Afficher les informations des héros d’une couleur différente de celles des vilains.
+	//Par exemple en bleu pour les héros, en rouge pour les vilains.
+	// Affichage des héros en bleu
+	for (Heros& heros : vecteurHeros) {
+		heros.changerCouleur(cout, "Bleu");
 		heros.afficher(cout);
+		heros.changerCouleur(cout,"");
 		cout << trait << "\n";
 	}
 
-	Vilain vilains;
-	for (auto& vilains : vecteurVilains) {
+	for (Vilain& vilains : vecteurVilains) {
+		vilains.changerCouleur(cout, "Rouge");
 		vilains.afficher(cout);
+		vilains.changerCouleur(cout, "");
 		cout << trait << "\n";
 	}
 
+	//TODO:Placer tous les héros et vilains dans le vecteur de personnages. 
+	// Le polymorphisme nous permet une telle opération car les héros et les vilains sont des personnages.
+	for (Heros heros : vecteurHeros)
+		vecteurPersonnages.push_back(heros);
+
+	for (Vilain vilains : vecteurVilains)
+		vecteurPersonnages.push_back(vilains);
+
+	//TODO: Afficher ensuite chaque personnage du vecteur de personnages toujours en faisant appel à la méthode
+	// afficher, encore avec les héros et vilains de couleurs différentes.
+	for (Personnage& personnage : vecteurPersonnages) {
+		personnage.afficher(cout);
+		personnage.changerCouleur(cout, "");
+		cout << trait << "\n";
+	}
+
+	//TODO: Finalement, créer un VilainHeros en passant à son constructeur un vilain et héros de votre choix,
+	//venant des vecteurs de vilains et héros, en autant que le vilain n’est pas l’ennemi du héros ! 
+	//Afficher-le à l’écran avec une troisième couleur, par exemple en mauve. L’ajouter aussi au vecteur de 
+	//personnages pour voir si l’affichage du vecteur fonctionne correctement pour tous nos types de personnages
+	//(les héros, vilains et vilains héros sont affichés correctement avec toutes leurs informations, et des couleurs différentes).
+	VilainHeros vilainHeros(vecteurVilains[0], vecteurHeros[2]);
+	vilainHeros.changerCouleur(cout, "Magenta");
+	vilainHeros.afficher(cout);
+	vecteurPersonnages.push_back(vilainHeros);
+	for (Personnage& personnage : vecteurPersonnages) {
+		personnage.changerCouleur(cout, "Vert");
+		personnage.afficher(cout);
+		personnage.changerCouleur(cout, "");
+		cout << trait << "\n";
+	}
 }

@@ -15,7 +15,6 @@ public:
         for (int i = 0; i < listeAllies_.size(); i++)
             os << "\t" << listeAllies_[i] << "\n";
     }
-    //virtual void changerCouleur(ostream& os, const string& couleur) override;
     const string& getEnnemi() const { return ennemi_; };
     const vector<string> getListeAllies() const { return listeAllies_; };
 private:
